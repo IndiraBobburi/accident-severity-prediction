@@ -1,0 +1,207 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> Accident Severity Prediction </title>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- <link rel="stylesheet" href="../static/style.css"> -->
+	</head>
+
+	<!-- <video playsinline autoplay muted loop id="bgvid">
+	    <source src="{{ url_for('static', filename='video/video.mp4') }}" type="video/mp4">
+	</video> -->
+
+	<body>
+		<div id="myAddForm" >
+		    <form method="post" role="form">
+		      <h1>Enter values to predict</h1>
+
+		      <p>
+            	<label>Carriageway Hazards</label>
+            	<input type="radio"
+            	       name="Carriageway_Hazards"
+            	       value="1" 
+            	       checked /> Present
+            	<input type="radio"
+            	       name="Carriageway_Hazards"
+            	       value="0" /> None
+           	  </p>
+
+           	  <p>
+            	<label>Light Conditions</label>
+            	<input type="radio"
+            	       name="Light_Conditions"
+            	       value="1" 
+            	       checked /> Light present
+            	<input type="radio"
+            	       name="Light_Conditions"
+            	       value="0" /> Darkness
+           	  </p>
+
+           	  <p>
+	           	  <label>Day of the week</label>
+			      <select name="Day_of_Week">
+				    <option value="1">Sunday</option>
+				    <option value="0">Monday</option>
+				    <option value="0">Tuesday</option>
+				    <option value="0">Wednesday</option>
+				    <option value="0">Thursday</option>
+				    <option value="0">Friday</option>
+				    <option value="1">Saturday</option>
+				  </select>
+			</p>
+
+			<p>
+	           	  <label>Special conditions at site</label>
+			      <select name="Special_Conditions_at_Site">
+			      	<option value="1">Auto signal part defective</option>
+				    <option value="1">Road sign or marking defective or obscured</option>
+				    <option value="1">Auto traffic signal - out</option>
+				    <option value="1">Road surface defective</option>
+				    <option value="1">Mud</option>
+				    <option value="1">Oil or diesel</option>
+				    <option value="1">Roadworks</option>
+				    <option value="0">None</option>
+				  </select>
+			</p>
+
+			<p>
+	           	  <label>Road class</label>
+			      <select name="1st_Road_Class">
+			      	<option value="1">A</option>
+				    <option value="2">B</option>
+				    <option value="3">C</option>
+				    <option value="4">Motorway</option>
+				    <option value="1">Unclassified</option>
+				  </select>
+			</p>
+
+			<p>
+	           	  <label>Junction Details</label>
+			      <select name="Junction_Detail">
+			      	<option value="1">Not at junction or within 20 metres</option>
+				    <option value="2">T or staggered junction</option>
+				    <option value="3">Crossroads</option>
+				    <option value="4">Roundabout</option>
+				    <option value="5">Private drive or entrance</option>
+				    <option value="6">Other junction</option>
+				    <option value="7">Slip road</option>
+				    <option value="8">More than 4 arms (not roundabout)</option>
+				    <option value="9">Mini-roundabout</option>
+				  </select>
+			</p>
+
+			<p>
+	           	  <label>Road surface conditions</label>
+			      <select name="Road_Surface_Conditions">
+			      	<option value="1">Dry</option>
+				    <option value="2">Wet or damp</option>
+				    <option value="3">Frost or ice</option>
+				    <option value="4">Snow</option>
+				    <option value="5">Flood over 3cm. deep</option>
+				  </select>
+			</p>
+
+			<p>
+	           	  <label>Road Type</label>
+			      <select name="Road_Surface_Conditions">
+			      	<option value="1">Single carriageway</option>
+				    <option value="2">Dual carriageway</option>
+				    <option value="3">Roundabout</option>
+				    <option value="4">One way street</option>
+				    <option value="5">Slip road</option>
+				  </select>
+			</p>
+
+			<p>
+				<label>Area</label>
+				<input type="radio"
+                       name="Urban_or_Rural_Area"
+                       value="1" /> Urban
+                <input type="radio"
+                       name="Urban_or_Rural_Area"
+                       value="2" /> Rural
+			</p>
+
+			<p>
+	           	  <label>Weather Conditions</label>
+			      <select name="Junction_Detail">
+			      	<option value="1">Fine no high winds</option>
+				    <option value="2">Raining no high winds</option>
+				    <option value="3">Raining + high winds</option>
+				    <option value="4">Fine + high winds"</option>
+				    <option value="5">Snowing no high winds</option>
+				    <option value="6">Fog or mist</option>
+				    <option value="7">Snowing + high winds</option>
+				    <option value="8">Other</option>
+				  </select>
+			</p>
+
+			<p>
+	           	  <label>Speed Limit</label>
+	           	  <!-- <input type="range" min="0" max="70" value="50" class="slider" name="Speed_Limit"> -->
+			      <select name="Speed_Limit">
+			      	<option value="10.0">10.0</option>
+				    <option value="15.0">15.0</option>
+				    <option value="20.0">20.0</option>
+				    <option value="30.0">30.0</option>
+				    <option value="40.0">40.0</option>
+				    <option value="50.0">50.0</option>
+				    <option value="60.0">60.0</option>
+				    <option value="70.0">70.0</option>
+				  </select>
+			</p>
+
+			<p>
+				<label>Time</label>
+				<input type="radio"
+                       name="Time"
+                       value="1" /> Day
+                <input type="radio"
+                       name="Time"
+                       value="2" /> Night
+			</p>
+
+		      <button type="submit" class="btn" id="submit" name="submit">Predict Accident Severity</button>
+		    </form>
+		</div>
+	</body>
+	<script type="text/javascript">
+        $(document).ready( function() {
+	    $('#submit').click(function() {
+	       var formdata = serialize();
+	       console.log("formdata")
+
+	       var settings = {
+              "async": true,
+              "crossDomain": true,
+              "url": "http://127.0.0.1:5000/prediction",
+              "method": "POST",
+              "headers": {
+                "Content-Type": "application/json",
+                "Cache-Control": "no-cache"
+              },
+              "processData": false,
+              "data": formdata
+            }
+
+            $.ajax(settings).done(function (response) {
+              console.log(response)
+            }); 
+	    });
+	});
+    </script>
+<!-- 	<script type="text/javascript">
+		function sendData() {
+			console.log("here") 
+            var object = {};
+            formData = document.getElementById("container")
+			formData.forEach(function(value, key){
+			    object[key] = value;
+			});
+			var json = JSON.stringify(object); 
+			console.log(json)          
+        }
+	</script> -->
+</html>

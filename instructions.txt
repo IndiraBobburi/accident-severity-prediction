@@ -1,0 +1,17 @@
+1. Clone the github and goto the root folder
+	$git clone https://github.com/IndiraBobburi/accident-severity-prediction
+
+2. Create a virtual environment with python3
+	$virtualenv -p /usr/local/bin/python3 dependencies
+
+3. Activate the virtual environment
+	$source dependencies/bin/activate
+
+4. Install all the dependencies
+	$pip install -r requirements.txt
+
+5. Run the app
+	$python3 app/main.py
+
+6. Open the port on browser and use the site.
+	www.localhost:5000
