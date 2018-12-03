@@ -163,45 +163,29 @@
                        value="2" /> Night
 			</p>
 
-		      <button type="submit" class="btn" id="submit" name="submit">Predict Accident Severity</button>
+		      <button type="submit" id="submit">Predict Accident Severity</button>
 		    </form>
 		</div>
 	</body>
 	<script type="text/javascript">
-        $(document).ready( function() {
-	    $('#submit').click(function() {
-	       var formdata = serialize();
-	       console.log("formdata")
-
-	       var settings = {
-              "async": true,
-              "crossDomain": true,
-              "url": "http://127.0.0.1:5000/prediction",
-              "method": "POST",
-              "headers": {
-                "Content-Type": "application/json",
-                "Cache-Control": "no-cache"
-              },
-              "processData": false,
-              "data": formdata
+		$(function() {
+    $('button').click(function(e) {
+    	e.preventDefault()
+        $.ajax({
+            url: '/test',
+            data: JSON.stringify({ Name: "indira", Credits: "1" }),
+          	dataType: "json",
+            type: 'POST',
+            contentType: "application/json",
+            success: function(response) {
+                console.log(response);
+            },
+            error: function(error) {
+                console.log(error);
             }
-
-            $.ajax(settings).done(function (response) {
-              console.log(response)
-            }); 
-	    });
-	});
+        });
+    });
+});
+ 
     </script>
-<!-- 	<script type="text/javascript">
-		function sendData() {
-			console.log("here") 
-            var object = {};
-            formData = document.getElementById("container")
-			formData.forEach(function(value, key){
-			    object[key] = value;
-			});
-			var json = JSON.stringify(object); 
-			console.log(json)          
-        }
-	</script> -->
 </html>
