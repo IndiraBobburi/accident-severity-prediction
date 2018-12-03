@@ -168,12 +168,24 @@
 		</div>
 	</body>
 	<script type="text/javascript">
+	function ConvertFormToJSON(form){
+    	var array = jQuery(form).serializeArray();
+    	var json = {};
+    
+    	jQuery.each(array, function() {
+    	    json[this.name] = this.value || '';
+   		});
+    
+    	return json;
+	}
 		$(function() {
     $('button').click(function(e) {
     	e.preventDefault()
+    	var json = ConvertFormToJSON($('form'));
+    	//console.log(json)
         $.ajax({
-            url: '/test',
-            data: JSON.stringify({ Name: "indira", Credits: "1" }),
+            url: '/predict',
+            data: JSON.stringify(json),
           	dataType: "json",
             type: 'POST',
             contentType: "application/json",
