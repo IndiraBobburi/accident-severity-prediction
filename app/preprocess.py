@@ -208,9 +208,11 @@ class prediction(object):
         return self.gaussianClassifier()
 
     def predictResult(self, data):
-        # test = pd.read_json(data, orient='records')
-        # print(test)
-        return "Slight"
+        test = pd.DataFrame(data, index=[0])
+        print(test)
+        new_prediction = self.model.predict(test)
+        print(new_prediction)
+        return new_prediction
 
     def __init__(self):
         dirname = os.path.dirname(__file__)

@@ -186,7 +186,7 @@ class prediction(object):
         print(format(classification_report(actual, pred)))
 
     def gaussianClassifier(self):
-        X = self.df[['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Detail','Light_Conditions','Road_Surface_Conditions','Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions']]
+        X = self.df[['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Control','Junction_Detail','Light_Conditions','Road_Surface_Conditions','Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions']]
         Y = self.df['Accident_Severity']
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25, random_state=42)
         gnb = GaussianNB()
@@ -225,9 +225,11 @@ class prediction(object):
         return self.gaussianClassifier()
 
     def predictResult(self, data):
-        # test = pd.read_json(data, orient='records')
-        # print(test)
-        return "Slight"
+        test = pd.DataFrame(data, index=[0])
+        print(test.shape)
+        new_prediction = self.model.predict(test)
+        print(new_prediction)
+        return new_prediction
 
     def __init__(self):
         dirname = os.path.dirname(__file__)

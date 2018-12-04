@@ -184,7 +184,7 @@
 
 			<p>
 	           	  <label>Road Type</label>
-			      <select name="Road_Surface_Conditions">
+			      <select name="Road_Type">
 			      	<option value="1">Single carriageway</option>
 				    <option value="2">Dual carriageway</option>
 				    <option value="3">Roundabout</option>
@@ -206,7 +206,7 @@
 
 			<p>
 	           	  <label>Weather Conditions</label>
-			      <select name="Junction_Detail">
+			      <select name="Weather_Conditions">
 			      	<option value="1">Fine no high winds</option>
 				    <option value="2">Raining no high winds</option>
 				    <option value="3">Raining + high winds</option>
@@ -262,7 +262,7 @@
     $('button').click(function(e) {
     	e.preventDefault()
     	var json = ConvertFormToJSON($('form'));
-    	//console.log(json)
+    	console.log(json)
         $.ajax({
             url: '/predict',
             data: JSON.stringify(json),
