@@ -9,6 +9,7 @@
 		<style>
 			h1 {
 			    text-align: center;
+			    color: #4CAF50;
 			}
 
 			input[type=text], select {
@@ -48,7 +49,7 @@
 
 			.button {
 			  display: inline-block;
-			  padding: 15px 25px;
+			  padding: 11px 25px;
 			  font-size: 24px;
 			  cursor: pointer;
 			  text-align: center;
@@ -59,6 +60,10 @@
 			  border: none;
 			  border-radius: 15px;
 			  box-shadow: 0 9px #999;
+			  position:relative;
+			  top:50%; 
+    		  left:20%;
+			  /*margin: 0 auto;*/
 			}
 
 			.button:hover {background-color: #3e8e41}
@@ -75,7 +80,7 @@
 	    <source src="{{ url_for('static', filename='video/video.mp4') }}" type="video/mp4">
 	</video> -->
 
-	<body>
+	<body background="/background.jpg">
 		<div class="box">
 		    <form method="post" role="form">
 		      <h1>Enter values to predict</h1>
@@ -181,7 +186,8 @@
 				<label>Area</label>
 				<input type="radio"
                        name="Urban_or_Rural_Area"
-                       value="1" /> Urban
+                       value="1" 
+                       checked /> Urban
                 <input type="radio"
                        name="Urban_or_Rural_Area"
                        value="2" /> Rural
@@ -220,7 +226,8 @@
 				<label>Time</label>
 				<input type="radio"
                        name="Time"
-                       value="1" /> Day
+                       value="1"
+                       checked  /> Day
                 <input type="radio"
                        name="Time"
                        value="2" /> Night
@@ -254,6 +261,7 @@
             contentType: "application/json",
             success: function(response) {
                 console.log(response);
+                alert("Accident Severity is predicted as:"+response.result)
             },
             error: function(error) {
                 console.log(error);
