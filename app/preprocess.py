@@ -117,21 +117,20 @@ class prediction(object):
 
     #split such that train and test data should have prediction classes in equal ratio
     def splitEqualRatio(self):
-        XY = self.df[['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Detail','Light_Conditions','Road_Surface_Conditions',
-        'Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions','Accident_Severity']]
+        XY = self.df[self.total]
         XY_Serious = XY[XY["Accident_Severity"]=="Serious"]
         XY_Slight = XY[XY["Accident_Severity"]=="Slight"]
         XY_Fatal = XY[XY["Accident_Severity"]=="Fatal"]
 
-        X_Serious = XY_Serious[['1st_Road_Class', 'Carriageway_Hazards', 'Day_of_Week', 'Junction_Detail', 'Light_Conditions', 'Road_Surface_Conditions', 'Road_Type', 'Special_Conditions_at_Site', 'Speed_limit', 'Time', 'Urban_or_Rural_Area', 'Weather_Conditions']]
+        X_Serious = XY_Serious[self.cols]
         Y_Serious = XY_Serious[['Accident_Severity']]
         X_Serious_train, X_Serious_test, Y_Serious_train, Y_Serious_test = train_test_split(X_Serious, Y_Serious, test_size=0.25)
 
-        X_Slight = XY_Slight[['1st_Road_Class', 'Carriageway_Hazards', 'Day_of_Week', 'Junction_Detail', 'Light_Conditions', 'Road_Surface_Conditions', 'Road_Type', 'Special_Conditions_at_Site', 'Speed_limit', 'Time', 'Urban_or_Rural_Area', 'Weather_Conditions']]
+        X_Slight = XY_Slight[self.cols]
         Y_Slight = XY_Slight[['Accident_Severity']]
         X_Slight_train, X_Slight_test, Y_Slight_train, Y_Slight_test = train_test_split(X_Slight, Y_Slight, test_size=0.25)
 
-        X_Fatal = XY_Fatal[['1st_Road_Class', 'Carriageway_Hazards', 'Day_of_Week', 'Junction_Detail', 'Light_Conditions', 'Road_Surface_Conditions', 'Road_Type', 'Special_Conditions_at_Site', 'Speed_limit', 'Time', 'Urban_or_Rural_Area', 'Weather_Conditions']]
+        X_Fatal = XY_Fatal[self.cols]
         Y_Fatal = XY_Fatal[['Accident_Severity']]
         X_Fatal_train, X_Fatal_test, Y_Fatal_train, Y_Fatal_test = train_test_split(X_Fatal, Y_Fatal, test_size=0.25)
 
@@ -169,7 +168,7 @@ class prediction(object):
         print(format(classification_report(actual, pred)))
 
     def gaussianClassifier(self):
-        X = self.df[['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Detail','Light_Conditions','Road_Surface_Conditions','Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions']]
+        X = self.df[self.cols]
         Y = self.df['Accident_Severity']
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25, random_state=42)
         gnb = GaussianNB()
@@ -179,7 +178,7 @@ class prediction(object):
         
     def randomForestClassifier(self):
     #class_weight = dict({2:1, 1:15, 0:50})
-        X = self.df[['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Detail','Light_Conditions','Road_Surface_Conditions','Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions']]
+        X = self.df[self.cols]
         Y = self.df['Accident_Severity']
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25, random_state=42)
         rself.df = RandomForestClassifier(bootstrap=True,
@@ -197,7 +196,7 @@ class prediction(object):
         return rself.df
 
     def logisticRegression(self):
-        X = self.df[['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Detail','Light_Conditions','Road_Surface_Conditions','Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions']]
+        X = self.df[self.cols]
         Y = self.df['Accident_Severity']
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25, random_state=42)
         lg = LogisticRegression()
@@ -208,11 +207,21 @@ class prediction(object):
         return self.gaussianClassifier()
 
     def predictResult(self, data):
-        test = pd.DataFrame(data, index=[0])
-        print(test)
+        inputData = []
+        for col in self.cols:
+            inputData.append(data[col])
+
+        inputData = {'0' : inputData}
+        test = pd.DataFrame.from_dict(inputData, orient='index', columns=self.cols)
         new_prediction = self.model.predict(test)
         print(new_prediction)
-        return new_prediction
+
+        if new_prediction[0] == 0:
+            return "Slight"
+        elif new_prediction[0] == 1:
+            return "Serious"
+            
+        return "None"
 
     def __init__(self):
         dirname = os.path.dirname(__file__)
@@ -221,7 +230,9 @@ class prediction(object):
         print("file reading done")
 
         self.df=self.df_original
-        self.df = self.df[['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Detail','Light_Conditions','Road_Surface_Conditions','Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions','Accident_Severity']]
+        self.cols = ['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Detail','Light_Conditions','Road_Surface_Conditions','Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions']
+        self.total = self.cols + ['Accident_Severity']
+        self.df = self.df[self.total]
         self.preprocess()
         print("preprocessing done")
 

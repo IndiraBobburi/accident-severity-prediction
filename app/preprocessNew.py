@@ -61,6 +61,7 @@ class prediction(object):
                                      "Not at junction or within 20 metres": 3, 
                                      "Stop sign": 4,
                                      "Authorised person": 5,
+                                     "Data missing or out of range": 1 
                                       }}
         self.df.replace(encoding_junction_control, inplace=True)
 
@@ -229,7 +230,13 @@ class prediction(object):
         print(test.shape)
         new_prediction = self.model.predict(test)
         print(new_prediction)
-        return new_prediction
+
+        if new_prediction[0] == 0:
+            return "Slight"
+        elif new_prediction[0] == 1:
+            return "Serious"
+
+        return "None"
 
     def __init__(self):
         dirname = os.path.dirname(__file__)

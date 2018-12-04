@@ -5,7 +5,7 @@ from flask_cors import CORS
 import os
 import os.path
 import json
-from preprocessNew import prediction
+from preprocess import prediction
 
 app = Flask(__name__, static_url_path = "", static_folder = "tmp")
 CORS(app)
