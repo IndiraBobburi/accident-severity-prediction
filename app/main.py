@@ -5,9 +5,13 @@ from flask_cors import CORS
 import os
 import os.path
 import json
+from preprocess import prediction
 
 app = Flask(__name__, static_url_path = "", static_folder = "tmp")
 CORS(app)
+
+#initialize the data and model
+obj = prediction()
 
 @app.route("/")
 def first_page():
@@ -17,7 +21,8 @@ def first_page():
 def predict():
      data = request.get_json()
      print(data)
-     r = {"result":"Slight"}
+     val = obj.predictResult(data)
+     r = {"result":val}
      # result = "Slight"
      resp = make_response(json.dumps(r))
      resp.status_code = 200
