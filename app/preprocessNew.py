@@ -199,7 +199,7 @@ class prediction(object):
         X = self.df[self.cols]
         Y = self.df['Accident_Severity']
         X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size=0.25, random_state=42)
-        rself.df = RandomForestClassifier(bootstrap=True,
+        rdf = RandomForestClassifier(bootstrap=True,
                 class_weight="balanced_subsample", 
                 criterion='gini',
                 max_depth=8, max_features='auto', max_leaf_nodes=None,
@@ -209,9 +209,9 @@ class prediction(object):
                 oob_score=False,
                 random_state=35,
                 verbose=0, warm_start=False)
-        Y_pred = rself.df.fit(X_train, Y_train).predict(X_test)
+        Y_pred = rdf.fit(X_train, Y_train).predict(X_test)
         self.printAnalysis(Y_test, Y_pred)
-        return rself.df
+        return rdf
 
     def logisticRegression(self):
         X = self.df[self.cols]
@@ -222,7 +222,7 @@ class prediction(object):
         return lg
 
     def defaultClassifier(self):
-        return self.gaussianClassifier()
+        return self.randomForestClassifier()
 
     def predictResult(self, data):
         inputData = []
@@ -248,6 +248,7 @@ class prediction(object):
         print("file reading done")
 
         self.df=self.df_original
+        # [1,0,1,0,1,0,1,1,0,60.0,1,2,1]
         self.cols = ['1st_Road_Class','Carriageway_Hazards','Day_of_Week','Junction_Control','Junction_Detail','Light_Conditions','Road_Surface_Conditions','Road_Type','Special_Conditions_at_Site','Speed_limit','Time','Urban_or_Rural_Area','Weather_Conditions']
         self.total = self.cols + ['Accident_Severity']
         self.df = self.df[self.total]
