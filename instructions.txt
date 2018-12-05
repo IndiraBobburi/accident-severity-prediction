@@ -10,8 +10,14 @@
 4. Install all the dependencies
 	$pip install -r requirements.txt
 
-5. Run the app
+5. Download the dataset to train the model
+	The dataset can be downlaoded from kaggle at https://www.kaggle.com/tsiaras/uk-road-safety-accidents-and-vehicles
+	The downloaded Accident_Information.csv file needs to placed in app/data/ folder for the program to run correctly.
+
+6. Run the app
 	$python3 app/main.py
 
-6. Open the port on browser and use the site.
+7. Open the port on browser and use the site.
 	www.localhost:5000
+
+8. Sample test data has been provided in sample_test_dataset.txt for your reference for testing.
