@@ -1,0 +1,15 @@
+Select the values in UI as below:
+
+Carriageway Hazards:        None
+Light Conditions:           Darkness
+Day of the week:            Saturday
+Special conditions at site: None
+Road class:                 A
+Junction Control:           Give way or uncontrolled
+Junction Details:           Not at junction or within 20 meters
+Road Surface conditions:    Dry
+Road Type:                  Single carriageway
+Area:                       Urban
+Weather conditions:         Fine no high winds
+Speed Limit:                60.0
+Time:                       Day
