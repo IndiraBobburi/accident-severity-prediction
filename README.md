@@ -28,6 +28,7 @@ The project intends to predict the accident severity for given road, weather, cl
 7. Open the port on browser and use the site.
 > localhost:5000
 
+8. Sample test data has been provided in sample_test_dataset.txt for your reference for testing.
 
 ## Preview of the application:
 ![](images/preview.png)
