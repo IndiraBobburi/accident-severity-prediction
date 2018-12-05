@@ -6,23 +6,28 @@ The project intends to predict the accident severity for given road, weather, cl
 
 ## Environment setup:
 
-> 1. Clone the github and goto the root folder
+1. Clone the github and goto the root folder
 > $git clone https://github.com/IndiraBobburi/accident-severity-prediction
->
-> 2. Create a virtual environment with python3
+
+2. Create a virtual environment with python3
 > $virtualenv -p /usr/local/bin/python3 dependencies
->
-> 3. Activate the virtual environment
+
+3. Activate the virtual environment
 > $source dependencies/bin/activate
->
-> 4. Install all the dependencies
+
+4. Install all the dependencies
 > $pip install -r requirements.txt
->
-> 5. Run the app
+
+5. Download the dataset to train the model
+>	The dataset can be downlaoded from kaggle at https://www.kaggle.com/tsiaras/uk-road-safety-accidents-and-vehicles
+>	The downloaded Accident_Information.csv file needs to placed in app/data/ folder relative to this file for the program to run correctly.
+
+6. Run the app
 > $python3 app/main.py
->
-> 6. Open the port on browser and use the site.
-> www.localhost:5000
+
+7. Open the port on browser and use the site.
+> localhost:5000
+
 
 ## Preview of the application:
 ![](images/preview.png)
