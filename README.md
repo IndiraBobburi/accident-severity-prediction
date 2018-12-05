@@ -24,5 +24,5 @@ The project intends to predict the accident severity for given road, weather, cl
 > 6. Open the port on browser and use the site.
 > www.localhost:5000
 
-## Preview of the site:
+## Preview of the application:
 ![](images/preview.png)
