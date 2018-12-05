@@ -1,0 +1,5 @@
+The dataset can be downloaded from the kaggle at this link.
+https://www.kaggle.com/tsiaras/uk-road-safety-accidents-and-vehicles
+
+The Accident_Information.csv downloaded from the link above should be present in data folder(same as this text file)
+ for the application to train on the dataset and run properly.
